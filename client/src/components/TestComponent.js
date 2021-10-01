@@ -7,7 +7,7 @@ const TestComponent = () => {
   const storeData = useSelector((state) => state.data);
 
   const onTestButtonClick = async () => {
-    await dispatch(dispatch(testAction));
+    await dispatch(testAction());
   };
 
   return (
