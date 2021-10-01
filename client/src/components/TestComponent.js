@@ -3,8 +3,8 @@ import { useDispatch, useSelector} from "react-redux";
 import { testAction } from "../store/actions/main";
 
 const TestComponent = () => {
-  const dispatch = useDispatch();
-  const storeData = useSelector((state) => state.data);
+  const dispatch = useDispatch(); //Upload
+  const storeData = useSelector((state) => state.data); //Download
 
   const onTestButtonClick = async () => {
     await dispatch(testAction());
