@@ -1,5 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+
+const port = 5000;
+const talkToBackEnd = async () =>{
+  let result = await axios.get(`http://localhost:${port}/users`);
+  console.log(result);
+}
 
 function App() {
   return (
@@ -17,6 +24,8 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={talkToBackEnd}>test backend connection</button>
+
       </header>
     </div>
   );
