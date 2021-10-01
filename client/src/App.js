@@ -1,33 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
+import "./App.css";
+import { createStore, applyMiddleware, compose } from "redux";
+import ReduxThunk from 'redux-thunk'
+import { Provider } from "react-redux";
+import {main} from "./store/reducers/main";
+import TestComponent from "./components/TestComponent";
 
-const port = 5000;
-const talkToBackEnd = async () =>{
-  let result = await axios.get(`http://localhost:${port}/users`);
-  console.log(result);
-}
 
-function App() {
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  main,
+  composeEnhancer(applyMiddleware(ReduxThunk))
+);
+
+const App = () =>{
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <button onClick={talkToBackEnd}>test backend connection</button>
-
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+          <TestComponent/>
+      </div>
+    </Provider>
   );
 }
 
