@@ -7,7 +7,6 @@ async function checkRedis(redisKey) {
     try {
         const data = new Promise((res, rej) => {
             redisClient.get(redisKey, (err, result) => {
-
                 if(err) {
                     return rej(err);
                 }
@@ -20,8 +19,9 @@ async function checkRedis(redisKey) {
     }
 }
 
-const storeDataIntoRedis = (redisKey, responseJSON) => {
+
+const storeIntoRedis = (redisKey, responseJSON) => {
     redisClient.setex(redisKey, 3600, JSON.stringify({ source: 'Redis Cache', responseJSON}));
 }
 
-module.exports = {checkRedis, storeDataIntoRedis};
+module.exports = {checkRedis, storeIntoRedis};
