@@ -1,6 +1,9 @@
 var express = require("express");
 var router = express.Router();
 
+const path = require('path')
+require('dotenv').config({path: path.resolve(__dirname+'/../.env')});
+
 /* GET test */
 router.get("/", async (req, res) => {
   try {
@@ -22,7 +25,7 @@ router.get("/persistence-test/search", (req, res) => {
     const searchUrl = `https://en.wikipedia.org/w/api.php?action=parse&format=json&section=0&page=${key}`;
     const s3Key = `wikipedia-${key}`;
     const redisKey = `wikipedia:${key}`
-    const bucketName = 'n10014926-wikipedia-store';
+    const bucketName = 'n10014926';
     
     // Create bucket
     createBucket(bucketName);
@@ -40,13 +43,14 @@ router.get("/persistence-test/search", (req, res) => {
         checkS3(bucketName, s3Key)
           .then((data) => {
           // Serve from S3
-          const s3Response = JSON.parse(data).responseJSON.parse;
+          const s3Response = JSON.parse(data);
           // Store into redis
-          storeIntoRedis(redisKey, s3Response)
+          storeIntoRedis(redisKey, s3Response.responseJSON)
           return res.status(200).json(s3Response);
         }).catch((err) => {
+
           // Not found in S3
-          if(err.message == 'NoSuchKey') {
+          if(err.message == 'NoSuchKey' || err.message == 'NoSuchBucket') {
             //  Serve from Wikipedia API
             return axios.get(searchUrl)
               .then((response) => {
@@ -54,27 +58,26 @@ router.get("/persistence-test/search", (req, res) => {
                 // Store into S3 and redis
                 storeIntoS3(bucketName, s3Key, responseJSON);
                 storeIntoRedis(redisKey, responseJSON)
-                return res.status(200).json({ source: 'wikipedia', ...responseJSON})
+                return res.status(200).json({ source: 'Wikipedia-Api', responseJSON})
               })
+
           } else {
 
             // Expired token
             if(err.message == 'ExpiredToken') {
               return res.status(400).json({ success: false, error: "Please check ~/aws/credentials file for token."})
-            // No bucket
-            } else if(err.message == 'NoSuchbucket') {
-              return res.status(400).json({ success: false, error: "The bucket does not exist"})
+            }else {
+              // Unhandled errors, implement later
+              return res.status(400).json({ success:false, error: err.message })
             }
-            
-            // Unhandled errors, implement later
-            return res.status(400).json({ success:false, error: err.message })
+
           }
         })
       }
     })
     
   } catch (err) {
-    return res.status(400).json({ success: false, error: err})
+    return res.status(400).json({ success: false, error: err.message, error_origin: err.stack})
   }
 
 })

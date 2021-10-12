@@ -1,5 +1,6 @@
 // Set up S3
-require('dotenv').config();
+const path = require('path')
+require('dotenv').config({path: path.resolve(__dirname+'/../.env')});
 const AWS = require('aws-sdk');
 const apiVersion = '2006-03-01';
 
@@ -8,6 +9,7 @@ const createBucket = (bucketName) => {
     // Create a promise on S3 service object
     const bucketPromise = new AWS.S3({apiVersion: apiVersion}).createBucket({Bucket: bucketName}).promise();
     bucketPromise.then((data) => {
+        console.log("created")
         console.log(data)
     }).catch((err) => {
         console.error(err.message);
@@ -28,12 +30,6 @@ async function checkS3(bucketName, s3Key) {
     }
     
 }
-
-checkS3('n10014926', 'key').then((data) => {
-    console.log(data)
-}).catch((err) => {
-    console.log(err.message)
-})
 
 // Store 'responseJSON' into an object of a bucket.
 const storeIntoS3 = (bucketName, s3Key, responseJSON) => {
