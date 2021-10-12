@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "sentimentTest": "GOOGLE_APPLICATION_CREDENTIALS='./apis/gcloud-private-key.json' node ./apis/nlpApi.js"
   },
   "dependencies": {
+    "@google-cloud/language": "^4.3.1",
     "aws-sdk": "^2.999.0",
     "axios": "^0.22.0",
     "cookie-parser": "~1.4.4",
