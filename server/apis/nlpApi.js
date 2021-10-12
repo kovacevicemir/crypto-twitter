@@ -14,3 +14,5 @@ async function getSentiment(text) {
 
     return sentiment.score;
 }
+
+module.exports = { getSentiment }

@@ -43,3 +43,7 @@ const getCoinPriceHistory = async (uuid) => {
     )
 }
 
+module.exports = {
+  getCoinRanking,
+  getCoinPriceHistory
+}
