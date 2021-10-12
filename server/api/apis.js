@@ -1,4 +1,40 @@
 const axios = require("axios").default;
+const Twitter = require('twitter-lite');
+
+// TWITTER API KEYS
+const API_KEY = 'diZ80LoUsyVuap0eUrNffOMSm';
+const API_KEY_SECRET = 'deDnVcZI2U8fK66hUKPMe3z9VlGOvq5UHTyjiGaICEilW0aiuN';
+const BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAMFWUgEAAAAACduy2gLNP1dkRAmuThJhHaiC0DA%3D5wYK67Msnv7vSR5OJrwKoV6U9baWAgyvu92UaisfCuvf1SHZvD';
+const ACCESS_TOKEN ='1437353763493199875-ShZvD6dwWkrCgT1KkS1nJmQ4xDufQL';
+const ACESS_TOKEN_SECRET = 'j1XtrqYIqsmTPNEpfOFnZZZK4IkONBlOvNk0nKmkiOdRk';
+
+// @GET tweets related to a keyword
+const getTweet = async (keyword, number_of_tweets) => {
+  const user = new Twitter({
+    consumer_key: API_KEY,
+    consumer_secret: API_KEY_SECRET,
+  });
+
+  try {
+    let response = await user.getBearerToken();
+
+    const app = new Twitter({
+      bearer_token: response.access_token
+    });
+
+    response = await app.get('/search/tweets', {
+      q: keyword,
+      lang: "en",
+      count: number_of_tweets,
+    })
+
+    for (tweet of response.statuses) {
+      console.dir(tweet.text);
+    }
+  } catch (err) {
+    return console.error(err)
+  }
+}
 
 //@GET cities lifestyle from teleport
 const citiesApi = async (city) => {
@@ -25,32 +61,6 @@ const citiesApi = async (city) => {
       );
   
       return res.data.items;
-    } catch (err) {
-      return console.error(err);
-    }
-  };
-  
-  //@GET jobs from Adzuna
-  const jobsApi = async (city, what) => {
-    try {
-      const res = await axios.get(
-        `
-        http://api.adzuna.com/v1/api/jobs/au/search/1?app_id=${adzuna.id}&app_key=${adzuna.key}&results_per_page=5&what=${what}&where=${city}}&content-type=application/json
-        `
-      );
-  
-      const modifiedData = res.data.results.map((job) => {
-        return {
-          ...job,
-          category_tag: job.category.tag,
-          category_label: job.category.label,
-          company_name: job.company.display_name,
-          job_location: job.location.display_name,
-          created_formated: job.created.slice(0, 10),
-        };
-      });
-  
-      return modifiedData;
     } catch (err) {
       return console.error(err);
     }
