@@ -24,7 +24,7 @@ export const testAction = () => {
 export const getCoinRanking = (number_of_coins) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/coinRoute/getCoinRanking?number_of_coins=${number_of_coins}`
+      `http://localhost:${port}/coin/topCoins/${number_of_coins}`
     );
     dispatch({ type: GET_COIN_RANKING, payload: result.data });
   };
@@ -33,17 +33,20 @@ export const getCoinRanking = (number_of_coins) => {
 export const getCoinPriceHistory = (uuid) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/coinRoute/getCoinPriceHistory?uuid=${uuid}`
+      `http://localhost:${port}/coin/coinPrice/${uuid}`
     );
     dispatch({ type: GET_COIN_PRICE_HISTORY, payload: result.data });
   };
 };
 
-export const getTweet = async (keyword, number_of_tweets) => {
+export const getTweet = async (topic, nums) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/twitterRoute?keyword=${keyword}&number_of_tweets=${number_of_tweets}`
+      `http://localhost:${port}/twitterRoute/tweet?topic=${topic}&nums=${nums}`
     );
+
+    console.log(result);
+
     dispatch({ type: GET_TWEET, payload: result.data });
   };
 };
