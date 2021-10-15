@@ -8,11 +8,17 @@ async function getSentiment(text) {
         type: 'PLAIN_TEXT',
     };
 
-    // Detects the sentiment of the text
-    const [result] = await languageClient.analyzeSentiment({document: document});
-    const sentiment = result.documentSentiment;
+    try {
+        // Detects the sentiment of the text
+        const [result] = await languageClient.analyzeSentiment({document: document});
+        const sentiment = result.documentSentiment;
 
-    return sentiment.score;
+        return sentiment.score;
+    } catch (err) {
+        console.log(err)
+    }
+
+    
 }
 
-module.exports = { getSentiment }
+module.exports = { getSentiment }   

@@ -7,6 +7,9 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var testRouter = require('./routes/test');
+var coinRouter = require('./routes/coinRoute');
+var twitterRouter = require('./routes/twitterRoute');
+var nlpRouter = require('./routes/nlpRoute');
 
 var app = express();
 app.use(cors())
@@ -18,6 +21,14 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/test', testRouter);
+app.use('/coin', coinRouter)
+app.use('/twitter', twitterRouter)
+app.use('/nlp', nlpRouter)
+
+// Catch missing routes
+app.use('*', (req, res) => {
+  res.send("No such route is found", 404);
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
