@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "GOOGLE_APPLICATION_CREDENTIALS='./apis/gcloud-private-key.json' node ./bin/www",
     "sentimentTest": "GOOGLE_APPLICATION_CREDENTIALS='./apis/gcloud-private-key.json' node ./apis/nlpApi.js"
   },
   "dependencies": {

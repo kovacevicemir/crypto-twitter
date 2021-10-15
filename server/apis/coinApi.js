@@ -2,7 +2,10 @@ const axios = require("axios");
 const { connect } = require("../routes/test");
 
 // API KEY
-const API_KEY = 'coinranking02067dabb5e10fbcc313b7212c34c5772a3ed0a5c77da389';
+const path = require('path')
+require('dotenv').config({path: path.resolve(__dirname+'/../.env')});
+
+const API_KEY = process.env.COIN_API_KEY
 
 // @GET top cryptocurrencies.
 const getCoinRanking = async (number_of_coins) => {
@@ -14,13 +17,13 @@ const getCoinRanking = async (number_of_coins) => {
     }
   };
 
-  await axios(options)
+  return axios(options)
     .then(data => {
-      console.log(data.data.data)
+      return data.data.data
     })
-    .catch(err => 
-      console.error(err)
-      )
+    .catch(err => {
+        return err
+    })
 }
 
 // @GET historical price of a cryptocurrency.
@@ -34,13 +37,13 @@ const getCoinPriceHistory = async (uuid) => {
     }
   };
 
-  await axios(options)
+  return axios(options)
     .then(data => {
-      console.log(data.data.data)
+      return data.data.data
     })
-    .catch(err => 
-      console.error(err)
-    )
+    .catch(err => {
+      return err
+    })
 }
 
 module.exports = {

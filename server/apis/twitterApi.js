@@ -2,11 +2,11 @@ const axios = require("axios").default;
 const Twitter = require('twitter-lite');
 
 // TWITTER API KEYS
-const API_KEY = 'diZ80LoUsyVuap0eUrNffOMSm';
-const API_KEY_SECRET = 'deDnVcZI2U8fK66hUKPMe3z9VlGOvq5UHTyjiGaICEilW0aiuN';
-const BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAAMFWUgEAAAAACduy2gLNP1dkRAmuThJhHaiC0DA%3D5wYK67Msnv7vSR5OJrwKoV6U9baWAgyvu92UaisfCuvf1SHZvD';
-const ACCESS_TOKEN ='1437353763493199875-ShZvD6dwWkrCgT1KkS1nJmQ4xDufQL';
-const ACESS_TOKEN_SECRET = 'j1XtrqYIqsmTPNEpfOFnZZZK4IkONBlOvNk0nKmkiOdRk';
+const path = require('path')
+require('dotenv').config({path: path.resolve(__dirname+'/../.env')});
+
+const API_KEY = process.env.TWITTER_API_KEY
+const API_KEY_SECRET = process.env.TWITTER_API_KEY_SECRET
 
 // @GET tweets related to a keyword
 const getTweet = async (keyword, number_of_tweets) => {
@@ -28,9 +28,14 @@ const getTweet = async (keyword, number_of_tweets) => {
       count: number_of_tweets,
     })
 
+    const tweets = []
     for (tweet of response.statuses) {
-      console.dir(tweet.text);
+      tweets.push({
+        tweet: tweet.text,
+        date: tweet.created_at
+      })
     }
+    return tweets
   } catch (err) {
     return console.error(err)
   }
