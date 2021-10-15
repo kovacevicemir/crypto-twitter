@@ -17,8 +17,11 @@ const TestComponent = () => {
   const testHistoryCoins = async () => {
     await dispatch(getCoinPriceHistory("Qwsogvtv82FCd"));
   };
-  const getTweet = async () => {
-    await dispatch(getTweet("bitcoin",10));
+  const accessTweet = async () => {
+    return getTweet("bitcoin", 10)
+      .then(data => {
+        dispatch(data)
+      })
   };
 
   return (
@@ -29,7 +32,7 @@ const TestComponent = () => {
       <br />
       <button onClick={testHistoryCoins}>coin history -> react dev tool state</button>
       <br />
-      <button onClick={getTweet}>tweets -> react dev tool state</button>
+      <button onClick={accessTweet}>tweets -> react dev tool state</button>
       <br />
       {storeData ? storeData : null}
     </div>
