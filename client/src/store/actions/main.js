@@ -42,7 +42,7 @@ export const getCoinPriceHistory = (uuid) => {
 export const getTweet = async (topic, nums) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/twitterRoute/tweet?topic=${topic}&nums=${nums}`
+      `http://localhost:${port}/twitter/tweet?topic=${topic}&nums=${nums}`
     );
 
     console.log(result);
