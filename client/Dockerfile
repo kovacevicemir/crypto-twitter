@@ -6,7 +6,7 @@ COPY . /
 # Create app directory
 WORKDIR /
 
-# Set Environmental variables
+# Set Environmental Variables
 ENV PORT=3000
 
 # Install app dependencies
