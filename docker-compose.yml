@@ -15,4 +15,4 @@ services:
   redis:
     image: "redis:latest"
     ports:
-      - "6000:6000"
+      - "6379:6379"
