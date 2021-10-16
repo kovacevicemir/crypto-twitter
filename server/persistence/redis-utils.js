@@ -1,7 +1,7 @@
 const redis = require('redis');
 
 // Set up redis
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({host: 'redis', port: 6000});
 
 async function checkRedis(redisKey) {
     try {

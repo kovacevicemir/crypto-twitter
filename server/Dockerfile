@@ -11,7 +11,6 @@ ENV PORT=5000
 
 # Install app dependencies
 RUN npm install
-RUN npm install --save @google-cloud/storage
 
 # Export port to outside world
 EXPOSE 5000
