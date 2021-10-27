@@ -1,7 +1,7 @@
 const { SentimentAnalyzer } = require('node-nlp')
 
 // Sentiment analysis tool, sentiment of a 'text' is described as float
-async function getSentiment(text) {
+function getSentiment(text) {
     try {
         const sentiment = new SentimentAnalyzer({ language: 'en' });
         return sentiment

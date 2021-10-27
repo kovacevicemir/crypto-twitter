@@ -35,6 +35,7 @@ const getTweet = async (keyword, number_of_tweets) => {
         date: tweet.created_at
       })
     }
+    
     return tweets
   } catch (err) {
     return console.error(err)
