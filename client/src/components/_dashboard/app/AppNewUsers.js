@@ -40,12 +40,8 @@ export default function AppNewUsers() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={appleFilled} width={24} height={24} />
+      <img style={{borderRadius:"50px"}} src="https://image.shutterstock.com/image-vector/new-ripple-logo-xrp-260nw-1114107335.jpg"/>
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        New Users
-      </Typography>
     </RootStyle>
   );
 }

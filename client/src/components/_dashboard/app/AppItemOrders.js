@@ -40,12 +40,10 @@ export default function AppItemOrders() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={windowsFilled} width={24} height={24} />
+      <img style={{borderRadius:"50px"}} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIOhIE1tzflkgY3rN2HAYkdtdbp-cI8gKu5g&usqp=CAU"/>
+
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Item Orders
-      </Typography>
+      
     </RootStyle>
   );
 }

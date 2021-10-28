@@ -14,7 +14,9 @@ const initState = {
       type: 'area',
       data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
     },
-  ]
+  ],
+  tweets:[],
+  averageSentiments: 0.0
 };
 
 //REDUCER
@@ -62,9 +64,12 @@ export const main = (state = initState, action) =>{
         ]
       }
     case GET_TWEET:
+
+
       return {
         ...state,
-        tweets:action.payload
+        tweets:action.payload.tweets,
+        averageSentiments: action.payload.averageSentiments
       }
     default:
       return state;
