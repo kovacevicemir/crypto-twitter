@@ -6,7 +6,7 @@ import { Card, CardHeader, Box } from '@mui/material';
 import { BaseOptionChart } from '../../charts';
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
-import { getTweet, getCoinPriceHistory } from '../../../store/actions/main';
+import { getTweet, getCoinPriceHistory, getCoinRanking } from '../../../store/actions/main';
 
 
 // ----------------------------------------------------------------------
@@ -66,6 +66,7 @@ const testHistoryCoins = async () => {
 //get data on component render
   useEffect(() => {
     testHistoryCoins()
+    getCoinRanking(4)
   }, [])
 
   const chartOptions = merge(BaseOptionChart(), {

@@ -16,7 +16,8 @@ const initState = {
     },
   ],
   tweets:[],
-  averageSentiments: 0.0
+  averageSentiments: 0.0,
+  coin_ranking:[]
 };
 
 //REDUCER
@@ -26,24 +27,19 @@ export const main = (state = initState, action) =>{
       return {
         data:action.payload
       };
+
     case GET_COIN_RANKING:
+
+      let coin_ranking_array = action.payload.map((entry)=>{
+        return parseInt(entry.price);
+      })
+
       return {
         ...state,
-        coin_ranking:action.payload
+        coin_ranking:coin_ranking_array
       }
+
     case GET_COIN_PRICE_HISTORY:
-      // let currentData = action.payload;
-      // currentData[0].data = apiResultTeamA...
-      // currentData[1].data = apiResultTeamB...
-
-      // {
-      //   name: 'Team B',
-      //   type: 'area',
-      //   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
-      // },
-
-      console.log(action.payload)
-
       const data = action.payload.history.map((point)=>{
         return parseInt(point.price)
       })
@@ -64,8 +60,6 @@ export const main = (state = initState, action) =>{
         ]
       }
     case GET_TWEET:
-
-
       return {
         ...state,
         tweets:action.payload.tweets,
