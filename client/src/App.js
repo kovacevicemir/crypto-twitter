@@ -3,7 +3,6 @@ import { createStore, applyMiddleware, compose } from "redux";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { main } from "./store/reducers/main";
-import TestComponent from "./components/TestComponent";
 // routes
 import Router from "./routes";
 // theme
@@ -22,7 +21,6 @@ const App = () => {
     <Provider store={store}>
       <ThemeConfig>
         <div className="App">
-          {/* <TestComponent /> */}
           <ScrollToTop />
           <GlobalStyles />
           <BaseOptionChartStyle />

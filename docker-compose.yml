@@ -5,12 +5,14 @@ services:
     restart: on-failure
     ports:
       - "3000:3000"
-
   backend:
     build: ./server
     restart: on-failure
-    tty: true
     ports:
       - "5000:5000"
+    volumes:
+      - $HOME/.aws/:/root/.aws/:ro
   redis:
     image: "redis:latest"
+    ports:
+      - "6379:6379"

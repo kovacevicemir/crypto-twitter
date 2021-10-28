@@ -40,12 +40,8 @@ export default function AppBugReports() {
   return (
     <RootStyle>
       <IconWrapperStyle>
-        <Icon icon={bugFilled} width={24} height={24} />
+        <img style={{borderRadius:"50px"}} src="https://media.istockphoto.com/photos/dark-bitcoin-3d-coin-logo-illustration-in-gold-with-shadows-rendering-picture-id899414380?k=20&m=899414380&s=612x612&w=0&h=VqA9kQUWfqyT0Ud0XkVfjJFCl_0yiJEnfYVPDKWjxqk="/>
       </IconWrapperStyle>
-      <Typography variant="h3">{fShortenNumber(TOTAL)}</Typography>
-      <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        Bug Reports
-      </Typography>
     </RootStyle>
   );
 }

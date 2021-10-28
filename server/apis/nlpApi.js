@@ -1,24 +1,23 @@
-const language = require('@google-cloud/language');
-const languageClient = new language.LanguageServiceClient();
+const { SentimentAnalyzer } = require('node-nlp')
 
 // Sentiment analysis tool, sentiment of a 'text' is described as float
-async function getSentiment(text) {
-    const document = {
-        content: text,
-        type: 'PLAIN_TEXT',
-    };
-
+function getSentiment(text) {
     try {
-        // Detects the sentiment of the text
-        const [result] = await languageClient.analyzeSentiment({document: document});
-        const sentiment = result.documentSentiment;
-
-        return sentiment.score;
+        const sentiment = new SentimentAnalyzer({ language: 'en' });
+        return sentiment
+            .getSentiment(text)
+            .then(result => {
+                return result.score;
+            })
+            .catch(err => {
+                return err
+            })
     } catch (err) {
-        console.log(err)
+        return err;
     }
 
     
 }
+
 
 module.exports = { getSentiment }   

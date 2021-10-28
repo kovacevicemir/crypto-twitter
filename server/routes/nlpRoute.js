@@ -9,7 +9,7 @@ router.get("/sentiment/:word", (req, res) => {
         
         getSentiment(topic)
             .then((data) => {
-                res.status(200).json(data);
+                return res.status(200).json(data);
             })
         
     } catch (err) {
