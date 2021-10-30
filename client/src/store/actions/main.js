@@ -45,8 +45,8 @@ export const getTweet = async (topic, nums) => {
       `http://localhost:${port}/twitter/tweet?topic=${topic}&nums=${nums}`
     );
 
-    console.log(result);
+    console.log("tweetsss", result)
 
-    dispatch({ type: GET_TWEET, payload: result.data });
+    dispatch({ type: GET_TWEET, payload: result.data.responseJSON });
   };
 };

@@ -3,13 +3,10 @@ import { Box, Grid, Container, Typography, Paper } from "@mui/material";
 // components
 import Page from "../components/Page";
 import {
-  AppTasks,
   AppNewUsers,
   AppBugReports,
   AppItemOrders,
-  AppNewsUpdate,
   AppWeeklySales,
-  AppOrderTimeline,
   AppCurrentVisits,
   AppWebsiteVisits,
   AppTrafficBySite,

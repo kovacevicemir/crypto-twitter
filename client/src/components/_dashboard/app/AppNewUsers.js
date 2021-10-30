@@ -1,10 +1,7 @@
-import { Icon } from '@iconify/react';
-import appleFilled from '@iconify/icons-ant-design/apple-filled';
 // material
 import { alpha, styled } from '@mui/material/styles';
-import { Card, Typography } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../utils/formatNumber';
+import { Card } from '@mui/material';
+
 
 // ----------------------------------------------------------------------
 
@@ -34,14 +31,13 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-const TOTAL = 1352831;
-
 export default function AppNewUsers() {
   return (
     <RootStyle>
       <IconWrapperStyle>
       <img style={{borderRadius:"50px"}} src="https://image.shutterstock.com/image-vector/new-ripple-logo-xrp-260nw-1114107335.jpg"/>
       </IconWrapperStyle>
+      <h1>XRP</h1>
     </RootStyle>
   );
 }

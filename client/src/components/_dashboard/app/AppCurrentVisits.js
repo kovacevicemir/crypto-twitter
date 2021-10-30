@@ -39,8 +39,6 @@ export default function AppCurrentVisits() {
   const theme = useTheme();
 
   const storeData = useSelector((state) => state.coin_ranking); //Download
-  console.log("COINT RANKING:")
-  console.log(storeData)
 
 
   const chartOptions = merge(BaseOptionChart(), {

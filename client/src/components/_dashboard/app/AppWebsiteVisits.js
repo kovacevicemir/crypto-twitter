@@ -52,13 +52,6 @@ export default function AppWebsiteVisits() {
   }
 ]);
 
-const accessTweet = async () => {
-  return getTweet("bitcoin", 10)
-    .then(data => {
-      dispatch(data)
-    })
-};
-
 const testHistoryCoins = async () => {
   await dispatch(getCoinPriceHistory("Qwsogvtv82FCd"));
 };
