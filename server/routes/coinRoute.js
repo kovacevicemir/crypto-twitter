@@ -7,6 +7,7 @@ router.get("/topCoins/:num", (req, res) => {
         const numCoins = req.params.num;
         getCoinRanking(numCoins)
             .then((data) => {
+		console.log(data)
                 topCoins = [];
                 data.coins.forEach(coin => {
                     topCoins.push({
@@ -17,8 +18,10 @@ router.get("/topCoins/:num", (req, res) => {
                         price: coin.price
                     })
                 });
-                return res.status(200).json(topCoins)
-            })
+                return res.status(200).json(data)
+            }).catch((err) => {
+			return res.status(400).json({error: err})
+		})
     } catch (err) {
         return res.status(400).json({ success: false, error: err.message, error_origin: err.stack })
     }

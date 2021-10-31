@@ -2,7 +2,7 @@
 const path = require('path')
 require('dotenv').config({path: path.resolve(__dirname+'/../.env')});
 const AWS = require('aws-sdk');
-const apiVersion = '2006-03-01';
+const apiVersion = '2012-10-17';
 
 // Create a S3 bucket with given bucketName
 const createBucket = (bucketName) => {

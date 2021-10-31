@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { connect } = require("../routes/test");
+
 
 // API KEY
 const path = require('path')
@@ -25,6 +25,7 @@ const getCoinRanking = async (number_of_coins) => {
         return err
     })
 }
+
 
 // @GET historical price of a cryptocurrency.
 // NOTE: takes "UUID" of a coin as a parameter.

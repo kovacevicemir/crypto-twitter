@@ -7,6 +7,7 @@ import {
 import axios from "axios";
 
 const port = 5000;
+const host = 'localhost'
 
 // ACTION Example:
 // 1st step
@@ -15,16 +16,16 @@ const port = 5000;
 // Pass results to Reducer
 
 export const testAction = () => {
-  return async (dispatch) => {
-    let result = await axios.get(`http://localhost:${port}/test`);
-    dispatch({ type: TEST_COMMUNICATION, payload: result.data });
-  };
+    return async (dispatch) => {
+      let result = await axios.get(`/test`);
+      dispatch({ type: TEST_COMMUNICATION, payload: result.data });
+    }
 };
 
 export const getCoinRanking = (number_of_coins) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/coin/topCoins/${number_of_coins}`
+      `/coin/topCoins/${number_of_coins}`
     );
     dispatch({ type: GET_COIN_RANKING, payload: result.data });
   };
@@ -33,7 +34,7 @@ export const getCoinRanking = (number_of_coins) => {
 export const getCoinPriceHistory = (uuid) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/coin/coinPrice/${uuid}`
+      `/coin/coinPrice/${uuid}`
     );
     dispatch({ type: GET_COIN_PRICE_HISTORY, payload: result.data });
   };
@@ -42,10 +43,8 @@ export const getCoinPriceHistory = (uuid) => {
 export const getTweet = async (topic, nums) => {
   return async (dispatch) => {
     let result = await axios.get(
-      `http://localhost:${port}/twitter/tweet?topic=${topic}&nums=${nums}`
+      `/twitter/tweet?topic=${topic}&nums=${nums}`
     );
-
-    console.log("tweetsss", result)
 
     dispatch({ type: GET_TWEET, payload: result.data.responseJSON });
   };
