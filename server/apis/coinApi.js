@@ -31,7 +31,7 @@ const getCoinRanking = async (number_of_coins) => {
 const getCoinPriceHistory = async (uuid) => {
   const options = {
     method: 'GET',
-    url: `https://api.coinranking.com/v2/coin/${uuid}/history`,
+    url: `https://api.coinranking.com/v2/coin/${uuid}/history?timePeriod=24h`,
     headers: {
       'x-access-token': API_KEY
     }

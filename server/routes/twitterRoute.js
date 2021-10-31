@@ -12,16 +12,16 @@ const { checkRedis, storeIntoRedis } = require('../persistence/redis-utils');
 const { createBucket, checkS3, storeIntoS3 } = require('../persistence/s3-utils') 
 const axios = require('axios');
 
-const persistenceUse = (fetchFunc, bucketName, s3Key, redisKey) => {
-    
-}
 router.get("/tweet", (req, res) => {
     try {
 
+        // Queries
         const topic = req.query.topic;
         const numTweets = req.query.nums;
-        const sentiments = [];
-        const tweets = [];
+
+        // Store sentiments data
+        const sentiments = []; 
+
         // Persistence keys
         const key = topic
         const s3Key = `tweet-${key}`;
@@ -55,15 +55,14 @@ router.get("/tweet", (req, res) => {
                                     .then((data) => {
                                         data.forEach((tweet) => {
                                             sentiments.push(getSentiment(tweet.tweet))
-                                            tweets.push(tweet)
                                         })
-                                        return {sentiments, tweets}
+                                        return sentiments
                                     }).then((data) => {
-                                        Promise.all(data.sentiments)
+                                        Promise.all(data)
                                             .then((val) => {
                                                 // Store into S3 and redis
                                                 const averageSentiment = val.reduce((prev, curr) => prev + curr, 0) / val.length
-                                                const responseJSON = {"tweets": data.tweets, "avergaeSentiment": averageSentiment};
+                                                const responseJSON = {"numberOfTweets": data.length, "averageSentiment": averageSentiment};
                                                 storeIntoS3(bucketName, s3Key, responseJSON);
                                                 storeIntoRedis(redisKey, responseJSON)
                                                 return res.status(200).json({ source: 'TwitterAPI', responseJSON });
@@ -73,7 +72,6 @@ router.get("/tweet", (req, res) => {
                                     }).catch((err) => {
                                         return res.status(400).json({ sucess: false, error: err.message, error_origin: err.stack})
                                     })
-
                         } else {
                             // Expired token
                             if(err.message == 'ExpiredToken') {
