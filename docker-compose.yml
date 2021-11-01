@@ -5,15 +5,13 @@ services:
     restart: on-failure
     ports:
       - "3000:3000"
-    network_mode: "host"
   backend:
     build: ./server
     restart: on-failure
     ports:
       - "5000:5000"
     volumes:
-      - $HOME/.aws/:/root/.aws/:ro
-    network_mode: "host"
+      - ~/.aws/:/root/.aws
   redis:
     image: "redis:latest"
     ports:
