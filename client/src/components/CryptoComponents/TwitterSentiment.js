@@ -1,8 +1,11 @@
 import Chart from 'react-apexcharts';
 import useFetch from '../useFetch';
 import { Timeline } from 'react-twitter-widgets'
-const SentimentChart = (props) => {
-    let {items, isLoading, error} = useFetch(`/twitter/tweet?topic=${props.topic}&nums=${props.nums}`)
+
+// A component for Twitter Sentiment Analysis chart AND
+// A tweeter timeline listing tweets regarding a cryptocurrency
+const TwitterSentiment = (props) => {
+    let {items, isLoading, error} = useFetch(`/twitter/tweet?topic=${props.topic}&nums=${props.tweetNums}`)
 
     let series = [0]
 
@@ -21,9 +24,17 @@ const SentimentChart = (props) => {
         labels: [`Sentiment Positivity Percentage on ${props.topic}`]
     };
     
+    // Error handling for twitter sentiment anaylsis API
     if(error) {
-        console.error(error);
+        console.error(error)
+        return (
+            <div>
+                <h2>Error detected while loading tweeter anaylsis on ${props.topic}</h2>
+                <h2>Please refer to console.</h2>
+            </div>
+        )
     }
+    // Data loaded without error.
     if(!isLoading) {
         let sentimentVal = Math.floor(items.responseJSON.averageSentiment * 100)
         series[0] = [sentimentVal]
@@ -32,20 +43,21 @@ const SentimentChart = (props) => {
     if(props) {
         return (
         <div>
+            <Chart options={options} series={series} type="radialBar" height="500" width="500" />
             <Timeline
                 dataSource={{
                     sourceType: 'profile',
-                    screenName: `${props.topic}`
+                    screenName: `${props.topic.split(" ")[0]}` // Twitter only accepts one word (i.e. 'binance coin X -> binanace O)
                 }}
                 options={{
-                    height: '1000'
+                    height: '1000',
+                    width: '1000'
                 }}
             />
-            <Chart options={options} series={series} type="radialBar" height="600" />
         </div>
     )} else {
         return null;
     }
 }
     
-export default SentimentChart;
+export default TwitterSentiment;
